@@ -1,0 +1,111 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    margin: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html{
+    height: 100%;
+    background-color: pink;
+}
+
+.container{
+    width: 95%;
+    /* background-color: black; */
+}
+
+.container .data-container{
+    width: 100%;
+}
+
+.data-container .head-title{
+    width: fit-content;
+    padding: 10px;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    border-top: 5px solid rgb(154, 89, 89);
+    margin-top: 10px;
+    color: rgb(229, 122, 140);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* post area */
+
+.data-container .post-area{
+    background-color: transparent;
+    margin-top: 10px;
+}
+
+.post-area .post{
+    padding: 10px;
+    padding-bottom: 0;
+    background-color: wheat;
+    border-radius: 10px;
+    margin: 10px auto;
+}
+
+.post .profile{
+    width: 40px;
+    height: 40px;
+    margin-left: 1px;
+    border-radius: 50%;
+    background-color: pink;
+}
+
+.profile img{
+    width:  95%;
+    border-radius: 50%;
+    height: 95%;
+}
+
+.post .name{
+    /* background-color: white; */
+    width: fit-content;
+    margin: 0;
+    position: relative;
+    top: -27px;
+    left: 50px;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+.post .caption{
+    font-size: 0.9em;
+}
+
+.post .seemore{
+    color: blue;
+}
+
+.post .pic{
+    width: 95%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.pic img{
+    width: 100%;
+    height: 100%;
+}
+
+.post .activity{
+    display: flex;
+    /* background-color: black; */
+    width: 90%;
+    
+}
+
+.activity div{
+    background-color: rgb(141, 153, 164);
+    border-radius: 50px;
+    margin: 10px auto;
+    color: pink;
+    padding: 10px;
+}
+
+.activity div:hover {
+    color: white;
+    background-color: pink;
+}
