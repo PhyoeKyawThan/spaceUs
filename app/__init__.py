@@ -15,12 +15,14 @@ def app():
     # manage blue print
     from .models import Users
     from .auth import auth
-    app.register_blueprint(auth, __name__, url_prefix="/auth")
+    app.register_blueprint(auth, url_prefix="/auth")
+    
+    with app.app_context():
+        db.create_all()
+    
     # login  manager
     @login_manager.user_loader
     def load_user(user_id):
         return Users.get(user_id)
     
-    with app.app_context():
-        db.create_all()
     return app
