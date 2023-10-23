@@ -19,6 +19,8 @@ class Users(db.Model, UserMixin):
 class Posts(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     post_id = db.Column(db.String(100), nullable=False)
+    caption = db.Column(db.String(255))
+    image_path = db.Column(db.String(255))
     date = db.Column(db.DateTime, nullable=False)
     act_id = db.Column(db.Integer)
     actions = db.relationship("Actions", backref="posts", lazy=True)

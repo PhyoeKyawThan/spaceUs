@@ -12,4 +12,10 @@ def signup():
     return redirect("home")
   else:
     return render_template("signup.html")
-    
+
+@views.route('/login')
+def login():
+  if current_user.is_authenticated:
+    return redirect("home")
+  else:
+    return render_template("login.html")

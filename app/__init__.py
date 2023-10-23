@@ -12,7 +12,7 @@ def app():
     db.init_app(app)
     login_manager = LoginManager()
     login_manager.init_app(app)
-    Migrate(app, db, command="migrate")
+    Migrate(app, db)
 
     # manage blue print
     from .models import Users
