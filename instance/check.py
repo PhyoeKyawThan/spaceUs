@@ -4,8 +4,8 @@ conn = sqlite3.connect("spaceUsBase.db")
 cur = conn.cursor()
 
 
-cur.execute("insert into Users values(2, 'domak', 'scrypt:32768:8:1$0HK722phqU9gSiUZ$a89ae30d455f15df5efb8b3e2edbba5b6dd499267cb8a5058e24c13593e87250526df1d2b892d0c87acc7925821f800a83c8d3ee9d233ba7471e78e376252d6d', 'PostmanRuntime/7.33.0')")
-conn.commit()
+#cur.execute("insert into Users values(2, 'domak', 'scrypt:32768:8:1$0HK722phqU9gSiUZ$a89ae30d455f15df5efb8b3e2edbba5b6dd499267cb8a5058e24c13593e87250526df1d2b892d0c87acc7925821f800a83c8d3ee9d233ba7471e78e376252d6d', 'PostmanRuntime/7.33.0')")
+#conn.commit()
 users = cur.execute("select * from Users").fetchall()
 cur.close()
 conn.close()

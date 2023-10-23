@@ -9,6 +9,7 @@ class Users(db.Model, UserMixin):
     username = db.Column(db.String(50), nullable=False)
     auth_key = db.Column(db.String(255), nullable=False)
     device_detail = db.Column(db.String(255), nullable=False)
+    date = db.Column(db.Date, nullable=False)
     post_id = db.relationship("Posts", backref="users", lazy=True)
 
     def __repr__(self):

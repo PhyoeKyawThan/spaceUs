@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" placeholder="name">
+  <br>
+  <input type="password" placeholder="pass">
+  <br>
+  <input type="button" value="signup">
+  <script>
+    document.querySelector("input[type=button]").addEventListener('click', ()=>{
+      let username = document.querySelector("input[type=text]");
+      let password = document.querySelector("input[type=password]");
+      let data = {
+        username: username.value,
+        password: password.value
+      }
+      fetch("/auth/signup", {
+        method: "POST",
+        headers: {
+         "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }).then((response)=>{
+        if(response.status === 200){
+          console.log("Okey");
+        }
+        return response.json();
+      }).then((data)=>{
+        if(data.redirect){
+          window.location.href = data.redirect;
+        }
+      }).then((err)=>{
+        console.error("Error ", err);
+      })
+    })
+  </script>
+</body>
+</html>
