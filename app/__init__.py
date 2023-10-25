@@ -18,9 +18,10 @@ def app():
     from .models import Users
     from .auth import auth
     from .views import views
+    from .post import post
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(views, url_prefix="/")
-    
+    app.register_blueprint(post, url_prefix="/post")
     with app.app_context():
         db.create_all()
     

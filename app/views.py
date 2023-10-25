@@ -6,6 +6,11 @@ views = Blueprint("views", __name__)
 def home():
   return render_template("index.html", name=current_user.username)
   
+
+@views.route("/upload")
+def upload():
+  return render_template("upload.html")
+
 @views.route('/signup')
 def signup():
   if current_user.is_authenticated:
