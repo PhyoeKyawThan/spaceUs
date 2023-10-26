@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, current_app
 from flask_login import current_user, login_required
 from . import db
-from .models import Posts
+from .models import Posts, Actions
 from uuid import uuid4
 from datetime import datetime
 # from werkzeug import secure_filename
@@ -15,7 +15,29 @@ def upload_post():
         caption = request.form["caption"]
         image = request.files["image"]
         # image.save(current_app.config['UPLOAD_FOLDER'] + image.filename)
-        new_post = Posts(post_id = uuid4(), caption=caption, image_path=current_app.config["UPLOAD_FOLDER"] + image.filename, date = datetime.now())
+        new_post = Posts(post_id = str(uuid4()), caption=caption, image_path=current_app.config["UPLOAD_FOLDER"] + image.filename, date = datetime.now(), user_id=current_user.id)
         db.session.add(new_post)
         db.session.commit()
         return jsonify({"status": 200, "message": "Upload Success"}), 200
+
+@post.route("/react/love/<string:post_id>", methods=['PUT'])
+def love_react(post_id):
+    if request.method == "PUT":
+        post_action = Posts(post_id = post_id, act_id = current_user.id)
+        new_action = Actions(love=True, save_id = current_user.id)
+        post_action.vertified = True
+        db.session.commit()
+        db.session.add(new_action)
+        db.session.commit()
+        return jsonify({"status": 200, "Message": "You have react"}), 200
+
+@post.route("/save/<string:post_id>", methods=["PUT"])
+def save_post(post_id):
+    if request.method == "PUT":
+        post_action = Posts(post_id = post_id, act_id = current_user.id)
+        new_save = Actions(save = True, act_id = current_user.id)
+        post_action.vertified = True
+        db.session.commit()
+        db.session.add(new_save)
+        db.session.commit()
+        return jsonify({"status": 200, "message": "Saved"}), 200

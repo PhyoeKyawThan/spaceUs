@@ -30,11 +30,10 @@ class Actions(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     love = db.Column(db.Boolean, default=False)
     interested = db.Column(db.Boolean, default=False)
-    save_id = db.Column(db.Integer)
+    save_id = db.Column(db.String(100))
     user_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
 
 class Saved(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    save_id = db.Column(db.Integer)
-    post_id = db.Column(db.String(100))
+    save_id = db.Column(db.String(100))
     save_date = db.Column(db.DateTime, nullable=False)
