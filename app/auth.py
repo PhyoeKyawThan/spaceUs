@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_user
+from flask_login import login_user, logout_user
 import werkzeug
 from datetime import datetime
 from . import db
@@ -40,7 +40,6 @@ def login():
         login_data = request.get_json()
         user_agent = request.headers.get("User-Agent")
         user_ = Users.query.filter_by(username=login_data["username"], device_detail=user_agent).all()
-        print(user_)
         exist = False
         for user in user_:
           if user.username == login_data["username"] and check_password_hash(user.auth_key, login_data["password"]):
@@ -50,3 +49,8 @@ def login():
             login_user(user_, remember=True)
             return jsonify({"status": 200, "message": "Login Success", "redirect": "/home"}), 200
         return jsonify({"status": 404, "message": "User Not Found"}), 404
+
+@auth.route('/logout')
+def logout():
+  logout_user()
+  return jsonify({"status": 200, "message": "Logout Success", "redirect": "/login"}), 200

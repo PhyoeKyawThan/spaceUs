@@ -23,21 +23,38 @@ def upload_post():
 @post.route("/react/love/<string:post_id>", methods=['PUT'])
 def love_react(post_id):
     if request.method == "PUT":
-        post_action = Posts(post_id = post_id, act_id = current_user.id)
-        new_action = Actions(love=True, save_id = current_user.id)
-        post_action.vertified = True
-        db.session.commit()
-        db.session.add(new_action)
-        db.session.commit()
-        return jsonify({"status": 200, "Message": "You have react"}), 200
-
-@post.route("/save/<string:post_id>", methods=["PUT"])
-def save_post(post_id):
-    if request.method == "PUT":
-        post_action = Posts(post_id = post_id, act_id = current_user.id)
-        new_save = Actions(save = True, act_id = current_user.id)
-        post_action.vertified = True
-        db.session.commit()
-        db.session.add(new_save)
-        db.session.commit()
-        return jsonify({"status": 200, "message": "Saved"}), 200
+        post_exist = Posts.query.filter_by(post_id=post_id).first()
+        if Actions.query.filter_by(post_id=post_exist.id).first().love == 1:
+          return jsonify({"status": 201, "message": "Already loved"}), 201
+        if post_exist:
+            post_action = Posts(post_id = post_id, act_id = current_user.id)
+            new_action = Actions(love=True, post_id=post_exist.id)
+            post_action.vertified = True
+            db.session.commit()
+            db.session.add(new_action)
+            db.session.commit()
+            return jsonify({"status": 200, "Message": "You have react"}), 200
+        return jsonify({"status": 404, "message": "Post not found"}), 404
+@post.route("/interested/<string:post_id>", methods=["PUT"])
+def interested(post_id):
+      if request.method == "PUT":
+        post_exist = Posts.query.filter_by(post_id=post_id).first()
+        if post_exist:
+            post_action = Posts(post_id = post_id, act_id = current_user.id)
+            new_action = Actions(interested=True)
+            post_action.vertified = True
+            db.session.commit()
+            db.session.add(new_action)
+            db.session.commit()
+            return jsonify({"status": 200, "Message": "You have react"}), 200
+        return jsonify({"status": 404, "message": "Post not found"}), 404
+# @post.route("/save/<string:post_id>", methods=["PUT"])
+# def save_post(post_id):
+#     if request.method == "PUT":
+#         post_action = Posts(post_id = post_id, act_id = current_user.id)
+#         new_save = Actions(save = True, act_id = current_user.id)
+#         post_action.vertified = True
+#         db.session.commit()
+#         db.session.add(new_save)
+#         db.session.commit()
+#         return jsonify({"status": 200, "message": "Saved"}), 200

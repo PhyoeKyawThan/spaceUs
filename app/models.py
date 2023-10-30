@@ -17,6 +17,8 @@ class Users(db.Model, UserMixin):
     
 
 class Posts(db.Model):
+    __tablename__ = "posts"
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     post_id = db.Column(db.String(100), nullable=False)
     caption = db.Column(db.String(255))
@@ -25,15 +27,17 @@ class Posts(db.Model):
     act_id = db.Column(db.Integer)
     actions = db.relationship("Actions", backref="posts", lazy=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    
+    def __repr__(self):
+        return f"<ID={self.id}, post_id={self.post_id}>"
 
 class Actions(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     love = db.Column(db.Boolean, default=False)
     interested = db.Column(db.Boolean, default=False)
-    save_id = db.Column(db.String(100))
-    user_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    
+    def __repr__(self):
+        return f"<post_id={Posts.id}, status=(love={self.love}, interested={self.interested})"
 
-class Saved(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    save_id = db.Column(db.String(100))
-    save_date = db.Column(db.DateTime, nullable=False)
+
