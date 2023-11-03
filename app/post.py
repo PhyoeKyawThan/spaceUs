@@ -4,7 +4,7 @@ from . import db
 from .models import Posts, Actions
 from uuid import uuid4
 from datetime import datetime
-# from werkzeug import secure_filename
+from werkzeug.utils import secure_filename
 
 post = Blueprint("post", __name__)
 
@@ -12,13 +12,20 @@ post = Blueprint("post", __name__)
 @login_required
 def upload_post():
     if request.method == "POST":
-        caption = request.form["caption"]
-        image = request.files["image"]
-        # image.save(current_app.config['UPLOAD_FOLDER'] + image.filename)
-        new_post = Posts(post_id = str(uuid4()), caption=caption, image_path=current_app.config["UPLOAD_FOLDER"] + image.filename, date = datetime.now(), user_id=current_user.id)
-        db.session.add(new_post)
-        db.session.commit()
-        return jsonify({"status": 200, "message": "Upload Success"}), 200
+        caption = request.form.get("caption", "")
+        if "image" not in request.files:
+            new_post = Posts(post_id = str(uuid4()), caption=caption, date = datetime.now(), user_id=current_user.id)
+            db.session.add(new_post)
+            db.session.commit()
+            return jsonify({"status": 200, "message": "Upload Success"}), 200
+        else:
+            image = request.files["image"]
+            new_post = Posts(post_id = str(uuid4()), caption=caption, image_path=current_app.config["UPLOAD_FOLDER"] + secure_filename(image.filename), date = datetime.now(), user_id=current_user.id)
+            image.save(current_app.config['UPLOAD_FOLDER'] + "/" + secure_filename(image.filename))
+            # new_post = Posts(post_id = str(uuid4()), caption=caption, image_path=current_app.config["UPLOAD_FOLDER"] + secure_filename(image.filename), date = datetime.now(), user_id=current_user.id)
+            db.session.add(new_post)
+            db.session.commit()
+            return jsonify({"status": 200, "message": "Upload Success"}), 200
 
 @post.route("/react/love/<string:post_id>", methods=['PUT'])
 def love_react(post_id):

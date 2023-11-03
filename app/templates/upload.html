@@ -33,6 +33,7 @@
             form_data.append("caption", caption.value);
             form_data.append("image", image.files[0]);
 
+            console.log(form_data);
             // fetch to the server end point 
             fetch("/post/upload_post", {
                 method: "POST",
