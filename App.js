@@ -9,7 +9,7 @@ const DATA = [
     profile: "https://i.ibb.co/86SfTtx/wallpaperflare-com-wallpaper.jpg",
     content: {
       caption: "Hello World",
-      image: null,
+      image: "https://i.ibb.co/86SfTtx/wallpaperflare-com-wallpaper.jpg",
     },
     love: false,
     interested: false,
@@ -19,8 +19,8 @@ const DATA = [
     username: "Audrey",
     profile: "https://i.ibb.co/86SfTtx/wallpaperflare-com-wallpaper.jpg",
     content: {
-      caption: "Hello World",
-      image: null,
+      caption: "Nice Day",
+      image: "https://i.ibb.co/86SfTtx/wallpaperflare-com-wallpaper.jpg",
     },
     love: false,
     interested: false,
