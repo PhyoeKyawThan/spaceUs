@@ -14,7 +14,7 @@ class Users(db.Model, UserMixin):
     post_id = db.relationship("Posts", backref="users", lazy=True)
 
     def __repr__(self):
-        return f"<User(id={self.id}, username={self.username})>"
+        return f"{self.username}"
     
 
 class Posts(db.Model):
@@ -30,7 +30,7 @@ class Posts(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     
     def __repr__(self):
-        return f"<ID={self.id}, post_id={self.post_id}>"
+        return f"{self.post_id}>"
 
 class Actions(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

@@ -20,7 +20,7 @@ def upload_post():
             return jsonify({"status": 200, "message": "Upload Success"}), 200
         else:
             image = request.files["image"]
-            new_post = Posts(post_id = str(uuid4()), caption=caption, image_path=current_app.config["UPLOAD_FOLDER"] + secure_filename(image.filename), date = datetime.now(), user_id=current_user.id)
+            new_post = Posts(post_id = str(uuid4()), caption=caption, image_path= "static/post_image/" + secure_filename(image.filename), date = datetime.now(), user_id=current_user.id)
             image.save(current_app.config['UPLOAD_FOLDER'] + "/" + secure_filename(image.filename))
             # new_post = Posts(post_id = str(uuid4()), caption=caption, image_path=current_app.config["UPLOAD_FOLDER"] + secure_filename(image.filename), date = datetime.now(), user_id=current_user.id)
             db.session.add(new_post)

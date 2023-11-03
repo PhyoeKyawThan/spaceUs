@@ -33,12 +33,13 @@ def get_posts():
     datas = []
     
     for data in posts:
-      posted_user = Users.query.get(data.id)
+      posted_user = Users.query.get(data.user_id)
       datas.append({
         "id": data.id, 
-        "username": posted_user.username,
+        "username": posted_user,
         "post_id": data.post_id,
         "profile": current_app.config["UPLOAD_FOLDER"] + "profiles" + "",
+        "caption": data.caption,
         "image": data.image_path
       })
     print(datas)
