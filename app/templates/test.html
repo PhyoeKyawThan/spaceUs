@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button type="button" id="love">Love</button>
+    <button type="button" id="interested">Interested</button>
+    <script>
+        let love = document.getElementById("love");
+        let Interested = document.getElementById("interested");
+        love.addEventListener("click", (e)=>{
+            fetch("http://127.0.0.1:5000/who", {
+                method: "GET",
+            }).then(response=>response.json()).then((data)=>{
+                console.log(data);
+            }).catch((error)=>{
+                console.error("Error: ", error);
+            })
+        })
+        Interested.addEventListener("click", (e)=>{
+            fetch("/post/interested/dc6227b5-f010-4bad-9560-1f098d7c38ea", {
+                method: "PUT",
+            }).then(response=>response.json()).then((data)=>{
+                console.log(data);
+            }).catch((error)=>{
+                console.error("Error: ", error);
+            })
+        })
+    </script>
+</body>
+</html>

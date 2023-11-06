@@ -3,11 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from werkzeug.urls import url_decode
 from flask_migrate import Migrate
+from flask_cors import CORS
 db = SQLAlchemy()
 
 
 def app():
     app = Flask(__name__)
+    CORS(app, resources={"": {"origins": "http://127.0.0.1:5000"}})
     app.config.from_pyfile('config.py')
     db.init_app(app)
     login_manager = LoginManager()

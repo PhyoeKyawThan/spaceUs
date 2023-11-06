@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, request, jsonify, current_app
-from flask_login import current_user
+from flask_login import current_user, login_required
 from .models import Posts, Users
 views = Blueprint("views", __name__)
 
@@ -27,6 +27,7 @@ def login():
     return render_template("login.html")
   
 @views.route("/posts", methods=["GET"])
+@login_required
 def get_posts():
   if request.method == 'GET':
     posts = Posts.query.all()
@@ -44,3 +45,13 @@ def get_posts():
       })
     print(datas)
     return render_template("index.html", posts = datas)
+  
+@views.route("/react")
+@login_required
+def react():
+  return render_template("test.html")
+
+@views.route('/who')
+@login_required
+def wo():
+  return jsonify({"username": current_user.username}), 200

@@ -17,7 +17,7 @@
     </style>
 </head>
 <body>
-    <form action="">
+    <form>
         <input type="text" name="caption" id="caption" placeholder="Caption">
         <input type="file" name="image" id="image">
         <input type="button" value="Upload" id="upload">
@@ -35,7 +35,7 @@
 
             console.log(form_data);
             // fetch to the server end point 
-            fetch("/post/upload_post", {
+            fetch("http://127.0.0.1:5000/post/upload_post", {
                 method: "POST",
                 body: form_data
             }).then((response)=>{

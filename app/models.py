@@ -36,7 +36,7 @@ class Actions(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     love = db.Column(db.Boolean, default=False)
     interested = db.Column(db.Boolean, default=False)
-    post_id = db.Column(db.Integer, db.ForeignKey("posts.id"))
+    post_id = db.Column(db.String(100), db.ForeignKey("posts.post_id"))
     
     def __repr__(self):
         return f"<post_id={Posts.id}, status=(love={self.love}, interested={self.interested})"
